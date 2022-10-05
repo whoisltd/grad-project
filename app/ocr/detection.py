@@ -5,10 +5,11 @@ import time
 from app.ocr.functions import align_image, process_output
 
 class Detector(object):
-    def __init__(self, url_model, threshold, targetSize):
+    def __init__(self, url_model, threshold, targetSize, label_map):
         self.url_model = url_model
         self.threshold = threshold
         self.targetSize = targetSize
+        self.label_map = label_map
         self.detect_fn = self.load_model(self.url_model)
 
     def load_model(self, model_url):
@@ -53,7 +54,7 @@ class Detector(object):
         # data= res.json()['predictions'][0]
         # results = process_output('corner', data, threshold, targetSize)
         print(results)
-        results = process_output('corner', results, threshold, targetSize)
+        results = process_output('corner', results, threshold, targetSize, self.label_map)
         
         crop_img = align_image(img, results)
         crop_img = np.array(crop_img)
@@ -72,20 +73,12 @@ class Detector(object):
         Returns:
             text: float tensor of shape [1, 4]
         """
-        # image = np.expand_dims(img, axis=0)
-        # image = tf.make_tensor_proto(image)
+
         input_tensor = tf.convert_to_tensor(img)
         input_tensor = input_tensor[tf.newaxis, ...]
 
         results = self.detect_fn(input_tensor)
-        # results = get_grpc_predict(url_model, 'input_tensor', image)
-        # results = results.outputs
 
-        # payload = {'instances': [img.tolist()]}
-        # res = requests.post(url_model, json=payload)
-        # data= res.json()['predictions'][0]
-        # results = process_output('text', data, threshold, targetSize)
-
-        results = process_output('text', results, threshold, targetSize)
+        results = process_output('text', results, threshold, targetSize, self.label_map)
 
         return results
