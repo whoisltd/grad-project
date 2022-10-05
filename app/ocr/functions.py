@@ -1,9 +1,19 @@
+import base64
 from statistics import mode
 import time
 import numpy as np
 import cv2
 import json
 import tensorflow as tf
+from PIL import Image
+import io
+# Take in base64 string and return cv image
+def stringToRGB(base64_string):
+    imgdata = base64.b64decode(base64_string)
+    im_arr = np.frombuffer(imgdata, dtype=np.int8)  # im_arr is one-dim Numpy array
+    img = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
+    img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
+    return img 
 
 def get_center_point(coordinate_dict):
     """
@@ -102,6 +112,7 @@ def align_image(image, coordinate_dict):
     Returns:
         image (numpy array): image
     """
+    print(coordinate_dict)
 
     if len(coordinate_dict) < 3:
         raise ValueError('Please try again')
@@ -126,7 +137,7 @@ def load_labels_map(label_url):
         return data['labels']
     return []
 
-def process_output(type, data, threshold, targetSize):
+def process_output(type, data, threshold, targetSize, labels_map):
     """
     process output of model
 
@@ -148,12 +159,12 @@ def process_output(type, data, threshold, targetSize):
         scores = list(data['detection_scores'][0])
         boxes = list(data['detection_boxes'][0])
         classes = list(data['detection_classes'][0])
-        label_map = load_labels_map('app/ocr/label_map/corner.pbtxt')
+        label_map = labels_map
     if type == 'text':
         scores = list(data['detection_scores'][0])
         boxes = list(data['detection_boxes'][0])
         classes = list(data['detection_classes'][0])
-        label_map = load_labels_map('app/ocr/label_map/text.pbtxt')
+        label_map = labels_map
 
     results = {}
     for i in range(len(scores)):
