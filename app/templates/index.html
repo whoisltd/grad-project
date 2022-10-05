@@ -61,14 +61,14 @@ $(document).ready(function() {
 <header class="mb-4">
 	<h4 class="card-title">Nhập ảnh cần trích xuất</h4>
 </header>
-<form>
+<form method="post" id="upload_img" enctype="multipart/form-data">
 	<div class="form-group">
 		<label id="upload-label" for="upload">
 			<input type="file" id="upload" class="form-control-file" name="img[]" accept="image/*" onchange="readURL(this);">
 		</label>
 	</div>
     <div class="form-group">
-        <button type="button" class="btn btn-primary btn-block"> Submit </button>
+        <button type="button" id="submit-button" class="btn btn-primary btn-block"> Submit </button>
     </div> <!-- form-group// -->      
 	<div class="form-group">
 		<div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
@@ -92,51 +92,45 @@ $(document).ready(function() {
 		<div class="form-row">
 			<div class="col form-group">
 				<label>Số CMND</label>
-			  	<input type="text" class="form-control">
+			  	<input type="text" class="form-control" id="id">
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="col form-group">
 				<label>Họ và tên</label>
-			  	<input type="text" class="form-control">
+			  	<input type="text" class="form-control" id="name">
 			</div>
 		</div>
         <div class="form-row">
 			<div class="col form-group">
 				<label>Ngày sinh</label>
-			  	<input type="text" class="form-control">
+			  	<input type="text" class="form-control" id="birthday">
 			</div>
 			<div class="col form-group">
 				<label>Giới tính</label>
-			  	<input type="email" class="form-control">
+			  	<input type="email" class="form-control" id="sex">
 			</div>
 		</div>
 		<div class="form-row">
-			<div class="col form-group">
-				<label>Dân tộc</label>
-			  	<input type="text" class="form-control">
-			</div>
 			<div class="col form-group">
 				<label>Quốc tịch</label>
-			  	<input type="email" class="form-control">
+			  	<input type="text" class="form-control" id="nation">
 			</div>
-		</div>
-		<div class="form-row">
 			<div class="col form-group">
 				<label>Ngày hết hạn</label>
-			  	<input type="text" class="form-control">
+			  	<input type="email" class="form-control" id="exp">
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="col form-group">
 				<label>Quê quán</label>
-			  	<input type="text" class="form-control">
+			  	<input type="text" class="form-control" id="hometown">
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="col form-group">
 				<label>Địa chỉ</label>
-			  	<input type="text" class="form-control">
+			  	<input type="text" class="form-control" id="addr">
 			</div>
 		</div>
       </form>
@@ -157,11 +151,11 @@ $(document).ready(function() {
 <!-- ========================= FOOTER ========================= -->
 <footer class="section-footer border-top padding-y">
 	<div class="container">
-		<p class="float-left text-muted"> Designed by <a href="http://pixsellz.io">Pixsellz</a> <br> Developed by 
-			<a target="_blank" href="http://behance.net/vosidiy">Vosidiy Muslimbek</a></p>
+		<p class="float-left text-muted"> Designed by <a href="#">Dat Le</a> <br> Developed by 
+			<a target="_blank" href="#">Dat Le</a></p>
 		<p target="_blank" class="float-right text-muted">
-Copyright &copy 2019 <br>
-<a href="http://bootstrap-ecommerce.com">Bootstrap-ecommerce UI kit</a>
+Copyright &copy 2022 <br>
+<a href="#">Dat Le</a>
 		</p>
 	</div><!-- //container -->
 </footer>
